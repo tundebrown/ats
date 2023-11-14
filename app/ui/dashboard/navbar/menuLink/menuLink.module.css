@@ -1,0 +1,31 @@
+.container {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 5px 0px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--bgSoft);
+}
+
+.container:hover,
+.active {
+  border-bottom: 1px solid var(--bgSoft);
+}
+
+.dropdown{
+  display: flex;
+  position: absolute;
+  background-color: aliceblue;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  top: 5%;
+  left: 17%;
+}
+
+.dropdownContainer{
+  display: flex;
+  padding: 5px;
+}
