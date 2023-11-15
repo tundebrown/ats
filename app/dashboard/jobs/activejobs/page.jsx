@@ -48,7 +48,7 @@ const ActiveJobsPage = async ({ searchParams }) => {
             </div>
             <div className={styles.lFilterContentItem}>
               <input type="checkbox" />
-              <p>Frontend / Fullstack Development</p>
+              <p>Frontend/Fullstack Development</p>
             </div>
             <div className={styles.lFilterContentItem}>
               <input type="checkbox" />
@@ -56,7 +56,7 @@ const ActiveJobsPage = async ({ searchParams }) => {
             </div>
             <div className={styles.lFilterContentItem}>
               <input type="checkbox" />
-              <p>Art Direction, Branding & Graphic</p>
+              <p>Branding & Graphic</p>
             </div>
             <span className={styles.lFilterLink}>MORE</span>
           </div>
