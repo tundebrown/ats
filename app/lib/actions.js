@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Job, Product, User } from "./models";
+import { Candidate, Job, Product, User } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
@@ -33,19 +33,19 @@ export const addUser = async (formData) => {
 
     const newUser = new User({
       username,
-    lastname,
-    email,
-    password: hashedPassword,
-    isAdmin,
-    isActive,
-    phone,
-    address,
-    experience,
-    highestQualification,
-    jobTitle,
-    employer,
-    expectedSalary,
-    currentSalary,
+      lastname,
+      email,
+      password: hashedPassword,
+      isAdmin,
+      isActive,
+      phone,
+      address,
+      experience,
+      highestQualification,
+      jobTitle,
+      employer,
+      expectedSalary,
+      currentSalary,
     });
 
     await newUser.save();
@@ -99,6 +99,106 @@ export const updateUser = async (formData) => {
   revalidatePath("/dashboard/users");
   redirect("/dashboard/users");
 };
+
+
+
+export const addCandidate = async (formData) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    img,
+    phone,
+    address,
+    experience,
+    highestQualification,
+    jobTitle,
+    employer,
+    expectedSalary,
+    currentSalary,
+  } = Object.fromEntries(formData);
+
+  const actualFilePath = "/nofile.jpg";
+
+  try {
+    connectToDB();
+
+    const newCandidate = new Candidate({
+      firstname,
+    lastname,
+    email,
+    img: actualFilePath,
+    phone,
+    address,
+    experience,
+    highestQualification,
+    jobTitle,
+    employer,
+    expectedSalary,
+    currentSalary,
+    });
+
+    await newCandidate.save();
+  } catch (err) {
+    console.log(err);
+    throw new Error(`Failed to create candidate! ${err}`);
+  }
+
+  revalidatePath("/dashboard/candidates");
+  redirect("/dashboard/candidates");
+};
+
+
+export const updateCandidate = async (formData) => {
+  const {
+    firstname,
+    lastname,
+    email,
+    img,
+    phone,
+    address,
+    experience,
+    highestQualification,
+    jobTitle,
+    employer,
+    expectedSalary,
+    currentSalary,
+  } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+
+    const updateFields = {
+      firstname,
+    lastname,
+    email,
+    img,
+    phone,
+    address,
+    experience,
+    highestQualification,
+    jobTitle,
+    employer,
+    expectedSalary,
+    currentSalary,
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await Candidate.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update candidate!");
+  }
+
+  revalidatePath("/dashboard/candidates");
+  redirect("/dashboard/candidates");
+};
+
+
 
 export const addProduct = async (formData) => {
   const { title, desc, price, stock, color, size } =
@@ -167,13 +267,22 @@ export const addJob = async (formData) => {
     clientName,
     status,
     contactName,
-    experience,
+    minExperience,
+    maxExperience,
     skills,
     jobType,
-    payment,
+    minSalary,
+    maxSalary,
     location,
-    accountManager,
+    workplaceModule,
+    phone,
+    companyName,
+    companyWebsite,
+    companyLogo,
+    // accountManager,
   } = Object.fromEntries(formData);
+
+  const actualFilePath = "/nologo.png";
 
   try {
     connectToDB();
@@ -187,12 +296,19 @@ export const addJob = async (formData) => {
       clientName,
       status,
       contactName,
-      experience,
+      minExperience,
+      maxExperience,
       skills,
       jobType,
-      payment,
+      minSalary,
+      maxSalary,
       location,
-      accountManager,
+      workplaceModule,
+      phone,
+      companyName,
+      companyWebsite,
+      companyLogo: actualFilePath,
+      // accountManager,
     });
 
     await newJob.save();
@@ -206,7 +322,9 @@ export const addJob = async (formData) => {
 };
 
 export const updateJob = async (formData) => {
-  const { id, jobOpeningId,
+  const {
+    id,
+    jobOpeningId,
     title,
     jobDesc,
     recruiter,
@@ -214,32 +332,46 @@ export const updateJob = async (formData) => {
     clientName,
     status,
     contactName,
-    experience,
+    minExperience,
+    maxExperience,
     skills,
     jobType,
-    payment,
+    minSalary,
+    maxSalary,
     location,
-    accountManager, } =
-    Object.fromEntries(formData);
+    workplaceModule,
+    phone,
+    companyName,
+    companyWebsite,
+    companyLogo,
+  } = Object.fromEntries(formData);
+
+  const actualFilePath = "/nologo.png";
 
   try {
     connectToDB();
 
     const updateFields = {
       jobOpeningId,
-    title,
-    jobDesc,
-    recruiter,
-    targetDate,
-    clientName,
-    status,
-    contactName,
-    experience,
-    skills,
-    jobType,
-    payment,
-    location,
-    accountManager,
+      title,
+      jobDesc,
+      recruiter,
+      targetDate,
+      clientName,
+      status,
+      contactName,
+      minExperience,
+      maxExperience,
+      skills,
+      jobType,
+      minSalary,
+      maxSalary,
+      location,
+      workplaceModule,
+      phone,
+      companyName,
+      companyWebsite,
+      companyLogo,
     };
 
     Object.keys(updateFields).forEach(
@@ -269,6 +401,20 @@ export const deleteUser = async (formData) => {
   }
 
   revalidatePath("/dashboard/products");
+};
+
+export const deleteCandidate = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    await Candidate.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete candidate!");
+  }
+
+  revalidatePath("/dashboard/candidates");
 };
 
 export const deleteProduct = async (formData) => {

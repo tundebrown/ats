@@ -63,6 +63,66 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const candidateSchema = new mongoose.Schema(
+  {
+    firstname: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 20,
+    },
+    lastname: {
+      type: String,
+      required: true,
+      min: 3,
+      max: 20,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    img: {
+      required: true,
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    experience:{
+      type: String,
+      required: true,
+    },
+    highestQualification:{
+      type: String,
+      required: true,
+    },
+    jobTitle: {
+      type: String,
+      required: true,
+    },
+    employer: {
+      type: String,
+      required: true,
+    }, 
+    expectedSalary: {
+      type: Number,
+      required: true,
+    },
+    currentSalary: {
+      type: Number,
+      required: true,
+    }
+  },
+  { timestamps: true }
+);
+
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -106,61 +166,90 @@ const jobSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      // required: true,
+      required: true,
     },
     jobDesc: {
       type: String,
-      // required: true,
+      required: true,
     },
     recruiter: {
       type: String,
-      // required: true,
+      required: true,
     },
     targetDate: {
       type: Date,
-      // required: true,
+      required: true,
     },
     clientName: {
       type: String,
-      // required: true,
+      required: true,
     },
     status: {
       type: String,
-      // required: true,
+      required: true,
     },
     contactName: {
       type: String,
-      // required: true,
+      required: true,
     },
-    experience: {
+    minExperience: {
       type: String,
-      // required: true,
+      required: true,
+    },
+    maxExperience: {
+      type: String,
+      required: true,
     },
     skills: {
       type: String,
-      // required: true,
+      required: true,
     },
     jobType: {
       type: String,
-      // required: true,
+      required: true,
     },
-    payment: {
+    minSalary: {
       type: String,
-      // required: true,
+      required: true,
+    },
+    maxSalary: {
+      type: String,
+      required: true,
     },
     location: {
       type: String,
-      // required: true,
+      required: true,
     },
-    accountManager: {
+    workplaceModule: {
       type: String,
-      // required: true,
+      required: true
     },
+    phone: {
+      type: String,
+      required: true
+    },
+    companyName: {
+      type: String,
+      required: true
+    },
+    companyWebsite: {
+      type: String,
+      required: true
+    },
+    companyLogo: {
+      type: String,
+      required: true
+    }
+    // accountManager: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   { timestamps: true },
 );
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);
+export const Candidate = mongoose.models.Candidate || mongoose.model("Candidate", candidateSchema);
 export const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema);
 export const Job = mongoose.models.Job || mongoose.model("Job", jobSchema);

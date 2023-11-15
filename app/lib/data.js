@@ -1,5 +1,5 @@
 import { MdEmail, MdFileCopy, MdOutlineWork, MdPerson, MdSupervisedUserCircle } from "react-icons/md";
-import { Job, Product, User } from "./models";
+import { Candidate, Job, Product, User } from "./models";
 import { connectToDB } from "./utils";
 
 export const fetchUsers = async (q, page) => {
@@ -31,6 +31,38 @@ export const fetchUser = async (id) => {
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch user!");
+  }
+};
+
+export const fetchCandidates = async (q, page) => {
+  const regex = new RegExp(q, "i");
+
+  const ITEM_PER_PAGE = 10;
+
+  try {
+    connectToDB();
+    const count = await Candidate.find({ firstname: { $regex: regex } }).count();
+    const candidates = await Candidate.find({ firstname: { $regex: regex } })
+    // const count = await Candidate.find({$and: [{ firstname: { $regex: regex }, }, { isAdmin: false }]} ).count();
+    // const users = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: false }]})
+      .limit(ITEM_PER_PAGE)
+      .skip(ITEM_PER_PAGE * (page - 1));
+    return { count, candidates };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch candidates!");
+  }
+};
+
+export const fetchCandidate = async (id) => {
+  console.log(id);
+  try {
+    connectToDB();
+    const candidate = await Candidate.findById(id);
+    return candidate;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch candidate!");
   }
 };
 
@@ -68,7 +100,7 @@ export const fetchJobs = async (q, page) => {
   console.log(q);
   const regex = new RegExp(q, "i");
 
-  const ITEM_PER_PAGE = 20;
+  const ITEM_PER_PAGE = 6;
 
   try {
     connectToDB();
@@ -103,7 +135,7 @@ export const cards = [
     title: "Active Jobs",
     number: 0,
     icon: <MdOutlineWork />,
-    color: "pale",
+    color: "#990033",
   },
   {
     id: 2,
@@ -117,20 +149,13 @@ export const cards = [
     title: "Interviews",
     number: 0,
     icon: <MdSupervisedUserCircle />,
-    color: "purple",
+    color: "#006666",
   },
   {
     id: 3,
-    title: "Submissions",
-    number: 0,
-    icon: <MdFileCopy />,
-    color: "indigo",
-  },
-  {
-    id: 3,
-    title: "Hire",
+    title: "Hires",
     number: 0,
     icon: <MdEmail />,
-    color: "pale",
+    color: "#003399",
   },
 ];

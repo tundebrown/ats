@@ -5,15 +5,15 @@ import Chart from "../ui/dashboard/chart/chart";
 import styles from "../ui/dashboard/dashboard.module.css";
 import Interviews from "../ui/dashboard/interviews/interviews";
 import Todolist from "../ui/dashboard/todolist/todolist";
-import { auth } from "@/app/auth";
+
 
 const Dashboard = async () => {
-  const { user } = await auth();
+
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.welcome}>
-        <div>Welcome {user.username}</div>
+        <div>Welcome </div>
         <div>
           <MdOutlinePhoneAndroid size={10} /> Get Mobile app
         </div>

@@ -24,7 +24,7 @@ const menuItems = [
       },
       {
         title: "Candidates/Talent Pool",
-        path: "/dashboard/users",
+        path: "/dashboard/candidates",
       },
       {
         title: "Interviews",

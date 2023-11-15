@@ -4,8 +4,15 @@ import Search from "@/app/ui/dashboard/search/search";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import { deleteJob } from "@/app/lib/actions";
 import { fetchJobs } from "@/app/lib/data";
-import { MdOutlineArrowDropDown, MdOutlineDelete, MdOutlineEdit, MdOutlineMenu, MdOutlineViewAgenda } from "react-icons/md";
-
+import {
+  MdAdd,
+  MdInfo,
+  MdOutlineArrowDropDown,
+  MdOutlineDelete,
+  MdOutlineEdit,
+  MdOutlineMenu,
+  MdOutlineViewAgenda,
+} from "react-icons/md";
 
 const JobsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
@@ -16,40 +23,46 @@ const JobsPage = async ({ searchParams }) => {
     <div className={styles.container}>
       <div className={styles.top}>
         <div>
-          <h4>All Job Openings <MdOutlineArrowDropDown /></h4>
+          <h4>
+            All Job Openings <MdOutlineArrowDropDown />
+          </h4>
         </div>
         <div className={styles.filter}>
-        <Search placeholder="Search for a job..." />
-          <button className={styles.addButton}><MdOutlineMenu /></button>
-        <Link href="/dashboard/jobs/add">
-          <button className={styles.addButton}>Create New Job</button>
-        </Link>
+          <Search placeholder="Search for a job..." />
+          <button className={styles.otherButton}>
+            <MdOutlineMenu />
+          </button>
+          <Link href="/dashboard/jobs/activejobs">
+            <button className={styles.otherButton}>
+              <MdInfo /> Jobs Page
+            </button>
+          </Link>
+          <Link href="/dashboard/jobs/add">
+            <button className={styles.addButton}>
+              <MdAdd /> Create New Job
+            </button>
+          </Link>
         </div>
       </div>
       <table className={styles.table}>
         <thead className={styles.tableHead}>
           <tr>
-
             <td className={styles.bb}>JOB OPENING ID</td>
             <td className={styles.bb}>TITLE</td>
             <td className={styles.bb}>RECRUITER</td>
             <td className={styles.bb}>TARGET DATE</td>
             <td className={styles.bb}>CLIENT NAME</td>
             <td className={styles.bb}>STATUS</td>
-            <td className={styles.bb}>CONTACT NAME</td> 
-            <td className={styles.bb}>ACCOUNT MANAGER</td>
+            <td className={styles.bb}>CONTACT NAME</td>
             <td className={styles.bb}>DATE CREATED</td>
             <td className={styles.bb}>ACTION</td>
           </tr>
         </thead>
         <tbody>
           {jobs.map((job) => (
-            <tr key={job.id} >
+            <tr key={job.id}>
               <td>
-                <div className={styles.product}>
-
-                  {job.jobOpeningId}
-                </div>
+                <div className={styles.product}>{job.jobOpeningId}</div>
               </td>
               <td>{job.title}</td>
               <td>{job.recruiter}</td>
@@ -57,27 +70,25 @@ const JobsPage = async ({ searchParams }) => {
               <td>{job.clientName}</td>
               <td>{job.status}</td>
               <td>{job.contactName}</td>
-              <td>{job.accountManager}</td>
               <td>{job.createdAt?.toString().slice(4, 16)}</td>
               <td>
                 <div className={styles.buttons}>
                   <Link href={`/dashboard/jobs/${job.id}/view`}>
                     <button className={`${styles.button} ${styles.view}`}>
-                    <MdOutlineViewAgenda/>
+                      <MdOutlineViewAgenda />
                     </button>
                   </Link>
                   <Link href={`/dashboard/jobs/${job.id}`}>
                     <button className={`${styles.button} ${styles.edit}`}>
-                      <MdOutlineEdit/>
+                      <MdOutlineEdit />
                     </button>
                   </Link>
                   <form action={deleteJob}>
                     <input type="hidden" name="id" value={job.id} />
                     <button className={`${styles.button} ${styles.delete}`}>
-                    <MdOutlineDelete/>
+                      <MdOutlineDelete />
                     </button>
                   </form>
-                 
                 </div>
               </td>
             </tr>

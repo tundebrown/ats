@@ -20,6 +20,15 @@
 
 .addButton{
   padding: 10px;
+  background-color: #47bb7f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.otherButton{
+  padding: 10px;
   background-color: #5d57c9;
   color: var(--bg);
   border: none;
@@ -27,8 +36,12 @@
   cursor: pointer;
 }
 
+.otherButton:hover{
+  background-color: #3933a2;
+}
+
 .addButton:hover{
-  background-color: var(--textSoft);
+  background-color: rgb(53, 156, 103);
 }
 
 .table{
@@ -39,6 +52,7 @@
 
 .bb{
   border-bottom: 1px solid rgb(182, 182, 182);
+  background-color: #dfdef0;
 }
 .tableHead{
   border-bottom: 3px solid var(--text);

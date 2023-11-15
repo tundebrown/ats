@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@next/eslint-plugin-next": "14.0.1",
+    "@vercel/node": "^3.0.10",
     "bcrypt": "5.1.1",
+    "formidable": "^3.5.1",
     "mongoose": "8.0.0",
     "next": "14.0.1",
     "next-auth": "5.0.0-beta.3",

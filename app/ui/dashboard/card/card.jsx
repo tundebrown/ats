@@ -9,7 +9,10 @@ const Card = ({ item }) => {
           <span className={styles.title}>{item.title}</span>
         </div>
         <div className={styles.detail} style={{color: `${item.color}`}}>
+          <div className={styles.detailContent}>
+
           {item.icon}
+          </div>
         </div>
       </div>
     </div>

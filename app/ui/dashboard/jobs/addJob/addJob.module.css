@@ -52,6 +52,19 @@
   width: 100%;
 }
 
+.inputContainer{
+  width: 49%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 12px;
+}
+
+.inputContainer input, .inputContainer select{
+  margin-left: 5px;
+  flex: 4;
+}
+
 .form button{
   width: 100%;
   padding: 20px;
