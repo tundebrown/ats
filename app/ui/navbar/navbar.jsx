@@ -12,11 +12,11 @@ const menuItems = [
     list: [
       {
         title: "Find Talent",
-        path: "/page/users",
+        path: "/page/candidate",
       },
       {
         title: "Find Job",
-        path: "/page/jobs",
+        path: "/page/allJob",
       },
       {
         title: "Why ATS",
