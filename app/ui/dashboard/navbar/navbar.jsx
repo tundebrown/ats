@@ -9,6 +9,7 @@ import {
 } from "react-icons/md";
 import { auth, signOut } from "@/app/auth";
 import Image from "next/image";
+import Link from "next/link";
 
 const menuItems = [
   {
@@ -87,13 +88,15 @@ const Navbar = async () => {
           <MdOutlineSettings size={20} />
           {/* <MdOutlineSupervisedUserCircle size={20} /> */}
           <div className={styles.user}>
+            <Link href="/dashboard/profile">
             <Image
               className={styles.userImage}
               src={user.img || "/noavatar.png"}
               alt=""
               width="30"
               height="30"
-            />
+              />
+              </Link>
             {/* <div className={styles.userDetail}>
               <span className={styles.username}>{user.username}</span>
               <span className={styles.userTitle}>Administrator</span>

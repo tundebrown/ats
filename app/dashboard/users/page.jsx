@@ -71,7 +71,7 @@ const JobsPage = async ({ searchParams }) => {
                     <MdOutlineViewAgenda/>
                     </button>
                   </Link>
-                  <Link href={`/dashboard/users/${user.id}/edit`}>
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className={`${styles.button} ${styles.edit}`}>
                       <MdOutlineEdit/>
                     </button>

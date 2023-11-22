@@ -13,16 +13,15 @@ export const addUser = async (formData) => {
     lastname,
     email,
     password,
+    img,
     isAdmin,
-    isActive,
     phone,
-    address,
-    experience,
-    highestQualification,
-    jobTitle,
-    employer,
-    expectedSalary,
-    currentSalary,
+    city,
+    state,
+    country,
+    role,
+    timezone,
+    defaultCurrency,
   } = Object.fromEntries(formData);
 
   try {
@@ -36,16 +35,15 @@ export const addUser = async (formData) => {
       lastname,
       email,
       password: hashedPassword,
+      img,
       isAdmin,
-      isActive,
       phone,
-      address,
-      experience,
-      highestQualification,
-      jobTitle,
-      employer,
-      expectedSalary,
-      currentSalary,
+      city,
+      state,
+      country,
+      role,
+      timezone,
+      defaultCurrency,
     });
 
     await newUser.save();
@@ -54,8 +52,8 @@ export const addUser = async (formData) => {
     throw new Error(`Failed to create user! ${err}`);
   }
 
-  revalidatePath("/dashboard/users");
-  redirect("/dashboard/users");
+  revalidatePath("/dashboard/signup");
+  redirect("/dashboard/signup");
 };
 
 export const updateUser = async (formData) => {
@@ -65,10 +63,13 @@ export const updateUser = async (formData) => {
     lastname,
     email,
     password,
+    img,
     phone,
-    address,
-    isAdmin,
-    isActive,
+    city,
+    state,
+    country,
+    timezone,
+    defaultCurrency,
   } = Object.fromEntries(formData);
 
   try {
@@ -79,10 +80,13 @@ export const updateUser = async (formData) => {
       lastname,
       email,
       password,
+      img,
       phone,
-      address,
-      isAdmin,
-      isActive,
+      city,
+      state,
+      country,
+      timezone,
+      defaultCurrency,
     };
 
     Object.keys(updateFields).forEach(
@@ -96,11 +100,9 @@ export const updateUser = async (formData) => {
     throw new Error("Failed to update user!");
   }
 
-  revalidatePath("/dashboard/users");
-  redirect("/dashboard/users");
+  revalidatePath("/dashboard/profile");
+  redirect("/dashboard/profile");
 };
-
-
 
 export const addCandidate = async (formData) => {
   const {
@@ -125,17 +127,17 @@ export const addCandidate = async (formData) => {
 
     const newCandidate = new Candidate({
       firstname,
-    lastname,
-    email,
-    img: actualFilePath,
-    phone,
-    address,
-    experience,
-    highestQualification,
-    jobTitle,
-    employer,
-    expectedSalary,
-    currentSalary,
+      lastname,
+      email,
+      img: actualFilePath,
+      phone,
+      address,
+      experience,
+      highestQualification,
+      jobTitle,
+      employer,
+      expectedSalary,
+      currentSalary,
     });
 
     await newCandidate.save();
@@ -147,7 +149,6 @@ export const addCandidate = async (formData) => {
   revalidatePath("/dashboard/candidates");
   redirect("/dashboard/candidates");
 };
-
 
 export const updateCandidate = async (formData) => {
   const {
@@ -170,17 +171,17 @@ export const updateCandidate = async (formData) => {
 
     const updateFields = {
       firstname,
-    lastname,
-    email,
-    img,
-    phone,
-    address,
-    experience,
-    highestQualification,
-    jobTitle,
-    employer,
-    expectedSalary,
-    currentSalary,
+      lastname,
+      email,
+      img,
+      phone,
+      address,
+      experience,
+      highestQualification,
+      jobTitle,
+      employer,
+      expectedSalary,
+      currentSalary,
     };
 
     Object.keys(updateFields).forEach(
@@ -197,8 +198,6 @@ export const updateCandidate = async (formData) => {
   revalidatePath("/dashboard/candidates");
   redirect("/dashboard/candidates");
 };
-
-
 
 export const addProduct = async (formData) => {
   const { title, desc, price, stock, color, size } =

@@ -2,6 +2,11 @@
   display: flex;
   gap: 50px;
   margin-top: 20px;
+  flex-direction: column;
+}
+
+.wrapper{
+  display: flex;
 }
 
 .infoContainer {
@@ -57,4 +62,8 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
+}
+
+.notificationSettings{
+  flex: 2;
 }

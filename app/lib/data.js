@@ -11,8 +11,8 @@ export const fetchUsers = async (q, page) => {
     connectToDB();
     // const count = await User.find({ username: { $regex: regex } }).count();
     // const users = await User.find({ username: { $regex: regex } })
-    const count = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: false }]} ).count();
-    const users = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: false }]})
+    const count = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]} ).count();
+    const users = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]})
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
     return { count, users };
@@ -126,21 +126,58 @@ export const fetchJob = async (id) => {
   }
 };
 
+export const fetchTotalJobs = async () => {
+
+  try {
+    connectToDB();
+    const countJob = await Job.find({ status: "active" }).count();
+    // const users = await User.find({ username: { $regex: regex } })
+    // const count = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]} ).count();
+    // const users = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]})
+
+    return { countJob };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch total active jobs!");
+  }
+};
+
+export const fetchTotalCandidates = async () => {
+
+  try {
+    connectToDB();
+    const countCandidate = await Candidate.find().count();
+    // const users = await User.find({ username: { $regex: regex } })
+    // const count = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]} ).count();
+    // const users = await User.find({$and: [{ username: { $regex: regex }, }, { isAdmin: true }]})
+
+    return { countCandidate };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch total active jobs!");
+  }
+};
+
+
 
 // DUMMY DATA
+
+  const { countJob } = await fetchTotalJobs();
+  const { countCandidate } = await fetchTotalCandidates();
+
 
 export const cards = [
   {
     id: 1,
     title: "Active Jobs",
-    number: 0,
+    number: countJob,
     icon: <MdOutlineWork />,
     color: "#990033",
   },
   {
     id: 2,
     title: "Applicants",
-    number: 0,
+    number: countCandidate,
     icon: <MdPerson />,
     color: "indigo",
   },

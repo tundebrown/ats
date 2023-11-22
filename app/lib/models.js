@@ -29,36 +29,29 @@ const userSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      default: false,
-    },
-    isActive: {
-      type: Boolean,
       default: true,
     },
     phone: {
-      type: String,
-    },
-    address: {
-      type: String,
-    },
-    experience:{
-      type: String,
-    },
-    highestQualification:{
-      type: String,
-    },
-    jobTitle: {
-      type: String,
-    },
-    employer: {
-      type: String,
-    }, 
-    expectedSalary: {
       type: Number,
     },
-    currentSalary: {
-      type: Number,
-    }
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
+    role: {
+      type: String,
+    },
+    timezone:{
+      type: String,
+    },
+    defaultCurrency:{
+      type: String,
+    },
   },
   { timestamps: true }
 );

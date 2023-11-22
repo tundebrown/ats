@@ -153,7 +153,7 @@ const ActiveJobsPage = async ({ searchParams }) => {
           </div>
         </div>
         {jobs.map((job) => (
-            <Link key={job.id} href={`/dashboard/jobs/activejobs/${job.id}`}>
+            <Link key={job.id} href={`/dashboard/jobs/activejobs/apply/${job.id}`}>
           <div className={styles.rightContent}>
             <div className={styles.rightContentLogo}>
               <Image
